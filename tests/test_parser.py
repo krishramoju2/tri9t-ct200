@@ -64,3 +64,27 @@ def test_duplicate_error_code_headings_are_preserved():
         "4.2",
         "7.1",
     }
+
+
+
+def test_specifications_table_is_preserved():
+    sections = parse_pdf("data/ct200_manual.pdf")
+
+    specifications = next(
+        section for section in sections
+        if section["section_number"] == "2.1"
+    )
+
+    assert len(specifications["tables"]) > 0
+
+
+def test_error_codes_table_is_preserved():
+    sections = parse_pdf("data/ct200_manual.pdf")
+
+    error_codes = next(
+        section for section in sections
+        if section["section_number"] == "4.2"
+    )
+
+    assert len(error_codes["tables"]) > 0
+
